@@ -1,0 +1,1 @@
+This is a Rock Paper Scissors project, part of the Odin Project curriculum
