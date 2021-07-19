@@ -35,23 +35,23 @@ function singleRound(playerSelection, computerSelection){
     //console.log("computer selection: " + computerSelection);
     var player = playerSelection.toLowerCase();
     if (player == 'rock' && computerSelection == 'paper'){
-        return 'You Lose! Paper beats Rock';
+        return 'You Lose! Paper beats Rock. ';
     } else if (player == 'rock' && computerSelection == 'scissors'){
-        return 'You Win! Rock beats Scissors';
+        return 'You Win! Rock beats Scissors. ';
     } else if (player == 'rock' && computerSelection == 'rock'){
-        return 'It\'s a Tie. Rock against Rock.';
+        return 'It\'s a Tie. Rock against Rock. ';
     } else if (player == 'paper' && computerSelection == 'scissors'){
-        return 'You Lose! Scissors beats Paper';
+        return 'You Lose! Scissors beats Paper. ';
     } else if (player == 'paper' && computerSelection == 'rock'){
-        return 'You Win! Paper beats Rock';
+        return 'You Win! Paper beats Rock. ';
     } else if (player == 'paper' && computerSelection == 'paper'){
-        return 'It\'s a Tie. Paper against Paper.';
+        return 'It\'s a Tie. Paper against Paper. ';
     } else if (player == 'scissors' && computerSelection == 'rock'){
-        return 'You Lose! Rock beats Scissors';
+        return 'You Lose! Rock beats Scissors. ';
     } else if (player == 'scissors' && computerSelection == 'paper'){
-        return 'You Win! Scissors beats Paper';
+        return 'You Win! Scissors beats Paper. ';
     } else if (player == 'scissors' && computerSelection == 'scissors'){
-        return 'It\'s a Tie. Scissors against Scissors.';
+        return 'It\'s a Tie. Scissors against Scissors. ';
     } else {
         return 'Oops, you misspelled. Try again.'
     }
@@ -59,6 +59,12 @@ function singleRound(playerSelection, computerSelection){
 let playerSelection = 'Rock';
 let computerSelection = computerPlay();
 //console.log(singleRound(playerSelection, computerSelection));
+
+
+
+function currentScoreText(){
+
+}
 
 // Write a NEW function called game(). Use the previous function inside 
 // of this one to play a 5 round game that keeps score and reports a winner 
@@ -68,35 +74,74 @@ let computerSelection = computerPlay();
 //Five rounds with user input between
 
 //Function to show current score and round with string
+//computerWon function check if computer won
 //variable to keep score for player
 //variable to keep score for computer
 //variable to show current round
 //string to announce the winner
 
+//Put rounds through a loop, so you misspelled rounds don't count. You can use roundtext as a variable.
+
 function game(){
+    let playerScore = 0;
+    let computerScore = 0;
+    let matchResult = '';
+
+    function setScore(result){
+        if (result.includes("Win!")){
+            playerScore++;
+        } else if (result.includes("Lose!")){
+            computerScore++;
+        } else {
+            return;
+        }
+    }
+    function currentScoreText(){
+        return 'Player ' + playerScore + ' - ' + 'Computer ' + computerScore;
+    }
     let playerSelection = prompt('Round 1: Rock, Paper or Scissors');
+    if (playerSelection === null) return;
     let computerSelection = computerPlay();
-    let round = singleRound(playerSelection, computerSelection)
-    console.log(round);
+    let roundResultText = singleRound(playerSelection, computerSelection);
+    setScore(roundResultText);
+    console.log(roundResultText + currentScoreText());
 
     playerSelection = prompt('Round 2: Rock, Paper or Scissors');
+    if (playerSelection === null) return;
     computerSelection = computerPlay();
-    round = singleRound(playerSelection, computerSelection);
-    console.log(round);
+    roundResultText = singleRound(playerSelection, computerSelection);
+    setScore(roundResultText);
+    console.log(roundResultText + currentScoreText());
 
     playerSelection = prompt('Round 3: Rock, Paper or Scissors');
+    if (playerSelection === null) return;
     computerSelection = computerPlay();
-    round = singleRound(playerSelection, computerSelection);
-    console.log(round);
+    roundResultText = singleRound(playerSelection, computerSelection);
+    setScore(roundResultText);
+    console.log(roundResultText + currentScoreText());
 
     playerSelection = prompt('Round 4: Rock, Paper or Scissors');
+    if (playerSelection === null) return;
     computerSelection = computerPlay();
-    round = singleRound(playerSelection, computerSelection);
-    console.log(round);
+    roundResultText = singleRound(playerSelection, computerSelection);
+    setScore(roundResultText);
+    console.log(roundResultText + currentScoreText());
 
     playerSelection = prompt('Round 5: Rock, Paper or Scissors');
+    if (playerSelection === null) return;
     computerSelection = computerPlay();
-    round = singleRound(playerSelection, computerSelection);
-    console.log(round);
+    roundResultText = singleRound(playerSelection, computerSelection);
+    setScore(roundResultText);
+    console.log(roundResultText + currentScoreText());
+    
+    if (playerScore < computerScore){
+        matchResult = currentScoreText() + ':: Computer wins.';
+    } else if (computerScore < playerScore){
+        matchResult = currentScoreText() + ':: You win!.';
+    } else {
+        matchResult = currentScoreText() + ':: Match ended as a tie.';
+    }
+
+    console.log(matchResult);
 }
 game();
